@@ -2389,6 +2389,20 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 }
 
 #pragma mark - Override For Protect
+/// 方法重写
+- (void)addSubview:(UIView *)view{
+    [super addSubview:view];
+
+    Class Cls_selectionView = NSClassFromString(@"UITextSelectionView");
+    Class Cls_selectionGrabberDot = NSClassFromString(@"UISelectionGrabberDot");
+    if ([view isKindOfClass:[Cls_selectionGrabberDot class]]) {
+        view.layer.contents = [UIView new];
+    }
+    
+    if ([view isKindOfClass:[Cls_selectionView class]]) {
+        view.hidden = YES;
+    }
+}
 
 - (void)setMultipleTouchEnabled:(BOOL)multipleTouchEnabled {
     [super setMultipleTouchEnabled:NO]; // must not enabled
